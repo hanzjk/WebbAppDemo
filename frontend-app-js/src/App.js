@@ -46,7 +46,7 @@ function App() {
     
   }
 
-  if (!signedIn) {
+  if (signedIn) {
     return (
       <button
         className="float-right bg-black bg-opacity-20 p-2 rounded-md text-sm my-3 font-medium text-white"
@@ -66,6 +66,16 @@ function App() {
         <p>Recievd Response</p>
         <p>{data}</p>
        
+
+        <button
+              className="float-right bg-[#5b86e5] p-2 rounded-md text-sm my-3 font-medium text-white"
+              onClick={() => {
+                sessionStorage.removeItem("userInfo");
+                window.location.href = `/auth/logout?session_hint=${Cookies.get('session_hint')}`;
+              }}
+            >
+              Logout
+            </button>
       </body>
     </div>
   );
