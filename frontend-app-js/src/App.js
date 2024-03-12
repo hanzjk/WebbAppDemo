@@ -46,7 +46,7 @@ function App() {
     
   }
 
-  if (signedIn) {
+  if (!signedIn) {
     return (
       <button
         className="float-right bg-black bg-opacity-20 p-2 rounded-md text-sm my-3 font-medium text-white"
