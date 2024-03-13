@@ -8,7 +8,6 @@ const apiUrl = window?.configs?.apiUrl ? window.configs.apiUrl : "/";
  const options = {
     method: 'GET',
   };
-
   const response = await performRequestWithRetry(apiUrl, options);
   console.log(response);
 

@@ -63,7 +63,7 @@ function App() {
     <div className="App">
       <body className="App-header">
      
-        <p>Recievd Response</p>
+        <p>Received Response</p>
         <p>{data}</p>
        
 
