@@ -8,6 +8,9 @@ function App() {
 
   const [user, setUser] = useState(null);
 
+  const test = process.env.REACT_APP_API_URL;
+  const testEnv = process.env.REACT_APP_HTTPS_PROXY;
+
   useEffect(() => {
     if (Cookies.get('userinfo')) {
       // We are here after a login
@@ -48,15 +51,18 @@ function App() {
 
   if (!signedIn) {
     return (
-      <button
+      <>
+      <h1>{test}</h1>
+       <button
         className="float-right bg-black bg-opacity-20 p-2 rounded-md text-sm my-3 font-medium text-white"
         onClick={() => { window.location.href = "/auth/login" }}
       >
         Login
       </button>
+      </>
+     
     );
   }
-
 
 
   return (
@@ -64,6 +70,7 @@ function App() {
       <body className="App-header">
      
         <p>Received Response</p>
+        <p>{process.env.HTTPS_PROXY}</p>
         <p>{data}</p>
        
 
