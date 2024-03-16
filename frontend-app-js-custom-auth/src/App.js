@@ -24,10 +24,10 @@ import axios from 'axios';
     getAccessToken,
     isAuthenticated,
     getBasicUserInfo,
+    getIDToken,
     state,
   } = useAuthContext();
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-
 
  async function fetchToken() {
   const getClientCredentials = oauth.clientCredentials(
@@ -53,7 +53,7 @@ import axios from 'axios';
   async function initializeUserSession() {
     const isUserSignedIn = await signInCheck();
     if (isUserSignedIn) {
-      await fetchToken();
+      await getIDTokenForChoreo();
       getReadingList(token);
       getUser();
     } else {
@@ -81,12 +81,26 @@ import axios from 'axios';
   };
 
 
+  const getIDTokenForChoreo=async()=>{
+    console.log("get token for choreo")
+    getIDToken()
+    .then((idToken) => {
+      console.log(idToken)
+      setToken(idToken)
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+  }
+
 
   useEffect( () => {
 
     async function fetchData() {
-      await fetchToken();
+      if(signedIn) {
+      await getIDTokenForChoreo();
       getReadingList(token);
+      }
     }
     fetchData();
 
@@ -95,7 +109,6 @@ import axios from 'axios';
 
   async function getReadingList(token) {
    if (signedIn){
-    console.log(token);
     getBooks(token)
     .then((res) => {
       setData(res.data);

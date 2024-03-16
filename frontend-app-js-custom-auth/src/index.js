@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from "@asgardeo/auth-react";
+import { TokenExchangePlugin } from "@asgardeo/token-exchange-plugin"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -12,12 +13,17 @@ const authConfig = {
   signOutRedirectURL: window.configs.redirectUrl,
   clientID: window.configs.asgardeoClientId,
   baseUrl: window.configs.asgardeoBaseUrl,
-  scope: ["openid", "profile"],
+  scope: ["openid",],
+  stsConfig: {
+    client_id: window.configs.consumerKey,
+    orgHandle: window.configs.organization,
+    scope: []
+},
 };
 
 root.render(
   <React.StrictMode>
-    <AuthProvider config={authConfig}>
+    <AuthProvider config={authConfig}  plugin={ TokenExchangePlugin.getInstance() }>
     <App />
     </AuthProvider>
   
