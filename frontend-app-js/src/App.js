@@ -8,35 +8,32 @@ function App() {
 
   const [user, setUser] = useState(null);
 
-  const test = process.env.REACT_APP_API_URL;
-  const testEnv = process.env.REACT_APP_HTTPS_PROXY;
-
-  useEffect(() => {
-    if (Cookies.get('userinfo')) {
-      // We are here after a login
-      const userInfoCookie = Cookies.get('userinfo')
-      sessionStorage.setItem("userInfo", userInfoCookie);
-      Cookies.remove('userinfo');
-      var userInfo = JSON.parse(atob(userInfoCookie));
-      setSignedIn(true);
-      setUser(userInfo);
-    } else if (sessionStorage.getItem("userInfo")) {
-      // We have already logged in
-      var userInfo = JSON.parse(atob(sessionStorage.getItem("userInfo")));
-      setSignedIn(true);
-      setUser(userInfo);
-    } else {
-      console.log("User is not signed in");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (Cookies.get('userinfo')) {
+  //     // We are here after a login
+  //     const userInfoCookie = Cookies.get('userinfo')
+  //     sessionStorage.setItem("userInfo", userInfoCookie);
+  //     Cookies.remove('userinfo');
+  //     var userInfo = JSON.parse(atob(userInfoCookie));
+  //     setSignedIn(true);
+  //     setUser(userInfo);
+  //   } else if (sessionStorage.getItem("userInfo")) {
+  //     // We have already logged in
+  //     var userInfo = JSON.parse(atob(sessionStorage.getItem("userInfo")));
+  //     setSignedIn(true);
+  //     setUser(userInfo);
+  //   } else {
+  //     console.log("User is not signed in");
+  //   }
+  // }, []);
 
 
   useEffect(() => {
     getReadingList();
-  }, [signedIn]);
+  }, []);
 
   async function getReadingList() {
-   if (signedIn){
+   if (true){
     getBooks()
     .then((res) => {
       setData(res.data);
@@ -49,20 +46,20 @@ function App() {
     
   }
 
-  if (!signedIn) {
-    return (
-      <>
-      <h1>{test}</h1>
-       <button
-        className="float-right bg-black bg-opacity-20 p-2 rounded-md text-sm my-3 font-medium text-white"
-        onClick={() => { window.location.href = "/auth/login" }}
-      >
-        Login
-      </button>
-      </>
+  // if (!signedIn) {
+  //   return (
+  //     <>
+  //     <h1>{test}</h1>
+  //      <button
+  //       className="float-right bg-black bg-opacity-20 p-2 rounded-md text-sm my-3 font-medium text-white"
+  //       onClick={() => { window.location.href = "/auth/login" }}
+  //     >
+  //       Login
+  //     </button>
+  //     </>
      
-    );
-  }
+  //   );
+  // }
 
 
   return (
@@ -70,11 +67,9 @@ function App() {
       <body className="App-header">
      
         <p>Received Response</p>
-        <p>{process.env.HTTPS_PROXY}</p>
         <p>{data}</p>
        
-
-        <button
+        {/* <button
               className="float-right bg-[#5b86e5] p-2 rounded-md text-sm my-3 font-medium text-white"
               onClick={() => {
                 sessionStorage.removeItem("userInfo");
@@ -82,7 +77,7 @@ function App() {
               }}
             >
               Logout
-            </button>
+            </button> */}
       </body>
     </div>
   );
