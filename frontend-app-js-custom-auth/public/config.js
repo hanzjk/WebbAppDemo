@@ -1,8 +1,11 @@
 window.configs = {
-  apiUrl: 'https://f1373e7c-c19a-4441-947d-89c0b861635a-dev.e1-us-east-azure.choreoapis.dev/zkyf/hello-world/hello-88e/v1.0',
-  asgardeoClientId:'BuarnrHZeZPJ1qCGourDEr07smUa',
+  apiUrl: '/choreo-apis/atze/backendservice/hello-88e/v1.0',
+  asgardeoClientId:'2DEDi5e5lCuEnC78D045JVmTP3wa',
   redirectUrl:'http://localhost:3000',
-  asgardeoBaseUrl:'https://api.asgardeo.io/t/hwjsk'
+  asgardeoBaseUrl:'https://api.asgardeo.io/t/hansijk',
+  tokenUrl:'https://sts.choreo.dev/oauth2/token',
+  consumerKey:'eh4ry2IfYUo4KJ2OkrFCd38WJXIa',
+  consumerSecret:'ZGySbOqD3u8UbRWTyaiROpdd48ga'
 };
 
 

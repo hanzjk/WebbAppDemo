@@ -2,10 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { getBooks } from './api';
 import Cookies from 'js-cookie';
 import { BasicUserInfo, useAuthContext } from "@asgardeo/auth-react";
+import oauth from 'axios-oauth-client'
+import axios from 'axios';
 
-function App() {
+ function App() {
+
+
+ const tokenUrl=window?.configs?.tokenUrl;
+ const consumerKey=window?.configs?.consumerKey;
+ const consumerSecret=window?.configs?.consumerSecret;
+
+ 
   const [signedIn, setSignedIn] = useState(false);
   const [data, setData] = useState('');
+  const [token, setToken] = useState('');
 
   const [user, setUser] = useState(null);
   const {
@@ -19,6 +29,17 @@ function App() {
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 
+ async function fetchToken() {
+  const getClientCredentials = oauth.clientCredentials(
+    axios.create(),
+    tokenUrl,
+    consumerKey,
+    consumerSecret
+  );
+  const auth = await getClientCredentials();
+  setToken(auth.access_token);
+}
+
 
   useEffect(() => {
     async function signInCheck() {
@@ -28,14 +49,19 @@ function App() {
       setSignedIn(isSignedIn);
       return isSignedIn;
     }
-    signInCheck().then((res) => {
-      if (res) {
-        getReadingList();
-        getUser();
-      } else {
-        console.log("User has not signed in");
-      }
-    });
+    
+  async function initializeUserSession() {
+    const isUserSignedIn = await signInCheck();
+    if (isUserSignedIn) {
+      await fetchToken();
+      getReadingList(token);
+      getUser();
+    } else {
+      console.log("User has not signed in");
+    }
+  }
+
+  initializeUserSession();
   }, []);
 
   async function getUser() {
@@ -47,8 +73,6 @@ function App() {
     console.log("SIGN IN")
     signIn()
       .then(() => {
-        console.log("SIGNIN SUCCESS")
-
         setSignedIn(true);
       })
       .catch((e) => {
@@ -58,15 +82,21 @@ function App() {
 
 
 
-  useEffect(() => {
-    getReadingList();
+  useEffect( () => {
+
+    async function fetchData() {
+      await fetchToken();
+      getReadingList(token);
+    }
+    fetchData();
+
+  
   }, [signedIn]);
 
-  async function getReadingList() {
+  async function getReadingList(token) {
    if (signedIn){
-    const accessToken = await getAccessToken();
-    console.log(accessToken);
-    getBooks(accessToken)
+    console.log(token);
+    getBooks(token)
     .then((res) => {
       setData(res.data);
     })
@@ -74,8 +104,6 @@ function App() {
       console.log(e);
     });
    }
-     
-    
   }
 
   if (!signedIn) {
