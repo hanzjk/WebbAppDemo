@@ -8,9 +8,6 @@ import axios from 'axios';
  function App() {
 
 
- const tokenUrl=window?.configs?.tokenUrl;
- const consumerKey=window?.configs?.consumerKey;
- const consumerSecret=window?.configs?.consumerSecret;
 
  
   const [signedIn, setSignedIn] = useState(false);
@@ -24,21 +21,9 @@ import axios from 'axios';
     getAccessToken,
     isAuthenticated,
     getBasicUserInfo,
-    getIDToken,
     state,
   } = useAuthContext();
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-
- async function fetchToken() {
-  const getClientCredentials = oauth.clientCredentials(
-    axios.create(),
-    tokenUrl,
-    consumerKey,
-    consumerSecret
-  );
-  const auth = await getClientCredentials();
-  setToken(auth.access_token);
-}
 
 
   useEffect(() => {
@@ -53,7 +38,7 @@ import axios from 'axios';
   async function initializeUserSession() {
     const isUserSignedIn = await signInCheck();
     if (isUserSignedIn) {
-      await getIDTokenForChoreo();
+      await getTokenForChoreo();
       getReadingList(token);
       getUser();
     } else {
@@ -81,12 +66,12 @@ import axios from 'axios';
   };
 
 
-  const getIDTokenForChoreo=async()=>{
+  const getTokenForChoreo=async()=>{
     console.log("get token for choreo")
-    getIDToken()
-    .then((idToken) => {
-      console.log(idToken)
-      setToken(idToken)
+    getAccessToken()
+    .then((token) => {
+      console.log(token)
+      setToken(token)
     })
     .catch((e) => {
       console.log(e);
@@ -98,7 +83,7 @@ import axios from 'axios';
 
     async function fetchData() {
       if(signedIn) {
-      await getIDTokenForChoreo();
+      await getTokenForChoreo();
       getReadingList(token);
       }
     }
