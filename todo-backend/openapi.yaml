@@ -1,0 +1,93 @@
+openapi: 3.0.0
+info:
+  title: Todo API
+  version: 1.0.0
+  description: A simple Todo API
+servers:
+  - url: http://localhost:8000
+paths:
+  /todos:
+    get:
+      summary: Get all todos
+      responses:
+        200:
+          description: A list of todos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Todo'
+    post:
+      summary: Create a new todo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Todo'
+      responses:
+        201:
+          description: The created todo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+  /todos/{id}:
+    delete:
+      summary: Delete a todo by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: The deleted todo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+    put:
+      summary: Update a todo by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                completed:
+                  type: boolean
+      responses:
+        200:
+          description: The updated todo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+components:
+  schemas:
+    Todo:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The auto-generated id of the todo
+        text:
+          type: string
+          description: The text of the todo
+        completed:
+          type: boolean
+          description: The status of the todo
+      required:
+        - text
+        - completed
