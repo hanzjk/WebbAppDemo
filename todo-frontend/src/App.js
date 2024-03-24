@@ -3,9 +3,47 @@ import Todo from "./components/Todo";
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { LoginButton,LogutButton } from "./components/TodoList/styles";
+import {  useAuthContext } from "@asgardeo/auth-react";
+
 function App() {
-  const [signedIn, setSignedIn] = useState(true);
+  const {
+    signIn,
+    signOut,
+    getAccessToken,
+    isAuthenticated,
+    getBasicUserInfo,
+    state,
+  } = useAuthContext();
+
+  const [signedIn, setSignedIn] = useState(false);
   const [user, setUser] = useState(null);
+
+
+  const handleSignIn = async () => {
+    
+    sessionStorage.setItem("isSigningIn", "true"); // Set flag before signing in
+     signIn()
+      .then(() => {
+        console.log("s");
+        setSignedIn(true);
+      })
+      .catch((e) => {
+        console.log(e);
+        sessionStorage.removeItem("isSigningIn"); // Clean up on error
+
+      });
+  };
+
+
+  useEffect(() => {
+    // Check if the user was in the process of signing in
+    const isSigningIn = sessionStorage.getItem("isSigningIn");
+    if (isSigningIn) {
+      setSignedIn(true);
+      sessionStorage.removeItem("isSigningIn"); // Clean up
+    }
+  }, []);
+
 
   useEffect(() => {
     if (Cookies.get("userinfo")) {
@@ -26,30 +64,31 @@ function App() {
     }
   }, []);
 
-  if (!signedIn) {
-    return (
-      <div style={{marginTop:"20%",marginLeft:"35%"}}>
+
+  
+  return (
+    <>
+      {!signedIn && (
+        <div style={{marginTop:"20%",marginLeft:"35%"}}>
         <LoginButton
           className="float-right bg-black bg-opacity-20 p-2 rounded-md text-sm my-3 font-medium text-white"
-          onClick={() => {
-            window.location.href = "/auth/login";
-          }}
+          // onClick={() => {
+          //   window.location.href = "/auth/login";
+          // }}
+          onClick={handleSignIn}
         >
           Login
         </LoginButton>
       </div>
-    );
-  }
-
-  return (
-    <div className="App">
+      )}
+  {
+    signedIn && (
+      <div className="App">
       <LogutButton
         className="float-right bg-[#5b86e5] p-2 rounded-md text-sm my-3 font-medium text-white"
         onClick={() => {
           sessionStorage.removeItem("userInfo");
-          window.location.href = `/auth/logout?session_hint=${Cookies.get(
-            "session_hint"
-          )}`;
+          signOut()
         }}
       >
         Logout
@@ -57,6 +96,10 @@ function App() {
 
       <Todo />
     </div>
+    )
+  }
+   
+    </>
   );
 }
 
