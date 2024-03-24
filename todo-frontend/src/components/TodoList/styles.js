@@ -47,3 +47,25 @@ export const AddButton = styled.button`
   cursor: pointer;
   width:100%
 `;
+
+export const LoginButton = styled.button`
+  padding: 10px 10px;
+  background-color: #00308F;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width:50%
+`;
+
+export const LogutButton = styled.button`
+  padding: 10px 10px;
+  background-color: #00308F;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left:95%;
+  margin-bottom:2%;
+
+`;
