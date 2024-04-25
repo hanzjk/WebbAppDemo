@@ -1,18 +1,13 @@
-import React from 'react'
-import oauth from 'axios-oauth-client'
+import React from 'react';
+import oauth from 'axios-oauth-client';
 import axios from 'axios';
 
 function Greetings({ posts }) {
   return (
     <div>
-      <h1>{process.env.API_URL}</h1>
-      <h1>{process.env.TEST_VAR}</h1>
-
-      <ul>
         {posts}
-      </ul>
     </div>
-  )
+  );
 }
 
 // This function gets called at request time
@@ -27,16 +22,17 @@ export async function getServerSideProps() {
   const auth = await getClientCredentials();
   const accessToken = auth.access_token;
 
-  const response = await axios.get(process.env.API_URL+'/greeting', {
+  const response = await axios.get(process.env.API_URL, {
     headers: {
       'Authorization': `Bearer ${accessToken}`
     }
-});
+  });
 
-  const posts = await response.data
+  const posts = response.data;
+  const postsString = JSON.stringify(posts);
 
   // Pass data to the page via props
-  return { props: { posts } }
+  return { props: { posts: postsString } };
 }
 
-export default Greetings
+export default Greetings;
