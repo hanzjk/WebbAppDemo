@@ -7,7 +7,7 @@ spec:
       connectionConfig:  01ef0310-658e-1eb8-a939-d82e7747ad1c
       env:
       - from: ServiceURL
-        to: NEXT_PUBLIC_API_URL
+        to: API_URL
       - from: ConsumerKey
         to: CONSUMER_KEY
       - from: ConsumerSecret
