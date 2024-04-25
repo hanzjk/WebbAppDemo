@@ -6,6 +6,8 @@ function Greetings({ posts }) {
   return (
     <div>
       <h1>{process.env.API_URL}</h1>
+      <h1>{process.env.TEST_VAR}</h1>
+
       <ul>
         {posts}
       </ul>
