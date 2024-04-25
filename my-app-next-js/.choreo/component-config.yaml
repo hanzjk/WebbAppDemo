@@ -1,0 +1,16 @@
+apiVersion: core.choreo.dev/v1beta1
+kind: ComponentConfig
+spec:
+  outbound:
+    serviceReferences:
+    - name: choreo:///hansijk/iasf/isdtvy/8b1c3/v1/PUBLIC
+      connectionConfig:  01ef0310-658e-1eb8-a939-d82e7747ad1c
+      env:
+      - from: ServiceURL
+        to: NEXT_PUBLIC_API_URL
+      - from: ConsumerKey
+        to: CONSUMER_KEY
+      - from: ConsumerSecret
+        to: CONSUMER_SECRET
+      - from: TokenURL
+        to: TOKEN_URL
