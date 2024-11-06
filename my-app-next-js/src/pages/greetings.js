@@ -22,11 +22,11 @@ export async function getServerSideProps() {
   const auth = await getClientCredentials();
   const accessToken = auth.access_token;
 
-  const response = await axios.get(process.env.API_URL, {
-    headers: {
-      'Authorization': `Bearer ${accessToken}`
-    }
-  });
+const response = await axios.get(`${process.env.API_URL}/greeting`, {
+  headers: {
+    'Authorization': `Bearer ${accessToken}`
+  }
+});
 
   const posts = response.data;
   const postsString = JSON.stringify(posts);
