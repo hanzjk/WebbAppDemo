@@ -5,7 +5,8 @@ import axios from 'axios';
 function Greetings({ posts }) {
   return (
     <div>
-        {posts}
+      <p>API URL: {process.env.API_URL}</p>
+      <div>{posts}</div>
     </div>
   );
 }
