@@ -135,6 +135,7 @@ import axios from 'axios';
                 {user?.orgName}
               </a>
             )}
+             <p>{window.configs.apiUrl}</p>
         <p>Received Response</p>
         <p>{data}</p>
        
