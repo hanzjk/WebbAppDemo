@@ -26,7 +26,7 @@ function App() {
   return (
     <div className="App">
       <body className="App-header">
-     
+     <p>{window.configs.apiUrl}</p>
         <p>Recievd Response</p>
         <p>{data}</p>
        
