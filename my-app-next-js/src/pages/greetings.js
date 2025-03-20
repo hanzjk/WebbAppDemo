@@ -13,6 +13,13 @@ function Greetings({ posts }) {
 
 // This function gets called at request time
 export async function getServerSideProps() {
+    console.log("Env variables");
+
+    console.log("TOKEN_URL:", process.env.TOKEN_URL);
+  console.log("CONSUMER_KEY:", process.env.CONSUMER_KEY);
+  console.log("CONSUMER_SECRET:", process.env.CONSUMER_SECRET);
+  console.log("API_URL:", process.env.API_URL);
+  
   // Fetch data from external API
   const getClientCredentials = oauth.clientCredentials(
     axios.create(),
@@ -23,10 +30,7 @@ export async function getServerSideProps() {
   const auth = await getClientCredentials();
   const accessToken = auth.access_token;
 
-  console.log("TOKEN_URL:", process.env.TOKEN_URL);
-  console.log("CONSUMER_KEY:", process.env.CONSUMER_KEY);
-  console.log("CONSUMER_SECRET:", process.env.CONSUMER_SECRET);
-  console.log("API_URL:", process.env.API_URL);
+
 
 
   const response = await axios.get(`${process.env.API_URL}/greeting`, {
