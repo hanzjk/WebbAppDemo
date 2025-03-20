@@ -5,7 +5,6 @@ import axios from "axios";
 function Greetings({ posts }) {
   return (
     <div>
-      <p>Envs are printed in console</p>
       <div>{posts}</div>
     </div>
   );
