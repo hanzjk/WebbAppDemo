@@ -3,8 +3,8 @@ kind: ComponentConfig
 spec:
   outbound:
     serviceReferences:
-    - name: choreo:///apifirst/testprojecthanis/hellow2/803f0/v1/PUBLIC
-      connectionConfig: 01f00556-76fb-16a8-90f1-bfdebbce3e5c
+    - name: choreo:///apifirst/testeu/greeting-service-bal/8b1c3/v1/PUBLIC
+      connectionConfig: 01f00559-89c3-16e8-902d-e403517e2e76
       env:
       - from: ServiceURL
         to: API_URL
