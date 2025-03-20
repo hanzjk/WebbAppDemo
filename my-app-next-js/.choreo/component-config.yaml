@@ -4,7 +4,7 @@ spec:
   outbound:
     serviceReferences:
     - name: choreo:///apifirst/testeu/greeting-service-bal/8b1c3/v1/PUBLIC
-      connectionConfig: 01f0055b-541f-1850-a5a7-59f91c297672
+      connectionConfig: 01f00560-f7bf-1640-82a6-93f6f5b69a3e
       env:
       - from: ServiceURL
         to: API_URL
