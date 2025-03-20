@@ -1,0 +1,5 @@
+schemaVersion: "1.1"
+dependencies:
+    connectionReferences:
+    - name: hih
+      resourceRef: service:/testeu/greeting-service-bal/v1/8b1c3/PUBLIC
