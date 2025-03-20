@@ -5,6 +5,8 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.description}>
+              <h1>Env varibales</h1>
+
           <h1>{process.env.API_URL}</h1>
           <h1>{process.env.CONSUMER_KEY}</h1>
           <h1>{process.env.CONSUMER_SECRET}</h1>
