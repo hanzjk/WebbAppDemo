@@ -1,11 +1,11 @@
-import React from 'react';
-import oauth from 'axios-oauth-client';
-import axios from 'axios';
+import React from "react";
+import oauth from "axios-oauth-client";
+import axios from "axios";
 
 function Greetings({ posts }) {
   return (
     <div>
-      <p>API URL: {process.env.API_URL}</p>
+      <p>Envs are printed in console</p>
       <div>{posts}</div>
     </div>
   );
@@ -23,11 +23,17 @@ export async function getServerSideProps() {
   const auth = await getClientCredentials();
   const accessToken = auth.access_token;
 
-const response = await axios.get(`${process.env.API_URL}/greeting`, {
-  headers: {
-    'Authorization': `Bearer ${accessToken}`
-  }
-});
+  console.log("TOKEN_URL:", process.env.TOKEN_URL);
+  console.log("CONSUMER_KEY:", process.env.CONSUMER_KEY);
+  console.log("CONSUMER_SECRET:", process.env.CONSUMER_SECRET);
+  console.log("API_URL:", process.env.API_URL);
+
+
+  const response = await axios.get(`${process.env.API_URL}/greeting`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
 
   const posts = response.data;
   const postsString = JSON.stringify(posts);
